@@ -26,9 +26,41 @@ const startTime = new Date().getTime();
 
 let activeCard = '';
 const activeCards = [];
+const countPairs = cards.length / 2;
+let gameResult = 0;
 
-const clickCard = () => {
-}
+const clickCard = (e) => {
+  activeCard = e.target;
+  activeCard.classList.remove('ukryte');
+  activeCard.removeEventListener('click', clickCard);
+
+  if (activeCards.length === 0) {
+    activeCards[0] = activeCard;
+    return;
+  } else {
+    cards.forEach(card => card.removeEventListener('click', clickCard));
+    activeCards[1] = activeCard;
+    setTimeout(() => {
+      if (activeCards[0].className === activeCards[1].className) {
+        activeCards.forEach(card => {
+          card.classList.add('off');
+        });
+      } else {
+        activeCards.forEach(card => {
+          card.classList.add('ukryte');
+        });
+      }
+      activeCard = '';
+      activeCards.length = 0;
+      cards.forEach(card => {
+        if (card.classList.contains('off')) {
+          return;
+        }
+        card.addEventListener('click', clickCard);
+      });
+    }, 1000)
+  }
+};
 
 const init = () => {
   cards.forEach(card => {
