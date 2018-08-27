@@ -45,6 +45,13 @@ const clickCard = (e) => {
         activeCards.forEach(card => {
           card.classList.add('off');
         });
+        gameResult++;
+        if (gameResult === countPairs) {
+          const endTime = new Date().getTime();
+          const gameTime = (endTime - startTime) / 1000;
+          alert(`Wygrałeś! Twoj czas to ${gameTime} sekund!`);
+          location.reload();
+        }
       } else {
         activeCards.forEach(card => {
           card.classList.add('ukryte');
