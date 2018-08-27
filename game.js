@@ -22,17 +22,25 @@ const cardColors = [
 let cards = document.querySelectorAll('div');
 cards = [...cards];
 
+const startTime = new Date().getTime();
+
+let activeCard = '';
+const activeCards = [];
+
+const clickCard = () => {
+}
+
 const init = () => {
-  cards.forEach((card) => {
+  cards.forEach(card => {
     const position = Math.floor(Math.random() * cardColors.length);
     card.classList.add(cardColors[position]);
     cardColors.splice(position, 1);
-    console.log(cardColors);
   })
-  setTimeout(function () {
-    cards.forEach(function (card) {
-      card.classList.add('ukryte')
-    })
-  }, 2000)
+  setTimeout(() => {
+    cards.forEach(card => {
+      card.classList.add('ukryte');
+      card.addEventListener('click', clickCard);
+    });
+  }, 2000);
 }
 init();
